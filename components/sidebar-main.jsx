@@ -2,31 +2,34 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { getUserPlaylists } from "@/lib/api";
-import { Home, Library, Search } from "lucide-react";
+import Image from "next/image";
+import { Home, Library, Search, Pin } from "lucide-react";
 import { Separator } from "./ui/separator";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
-import Image from "next/image";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "./ui/tooltip";
+import { getUserPlaylists, getUserProfile, getUserTracks } from "@/lib/api";
 
 const Sidebar = () => {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [user, setUser] = useState({});
   const [playlists, setPlaylists] = useState([]);
 
   useEffect(() => {
-    fetchPlaylists();
+    fetchData();
   }, []);
 
-  const fetchPlaylists = async () => {
+  const fetchData = async () => {
     try {
       const { items } = await getUserPlaylists();
-      console.log(items);
+      const response = await getUserProfile();
+
       setPlaylists(items);
+      setUser(response);
     } catch (error) {
       console.log(error);
     }
@@ -60,7 +63,7 @@ const Sidebar = () => {
             <Tooltip>
               <TooltipTrigger asChild>
                 <Link
-                  href="/me"
+                  href="/me/search"
                   className="group flex h-10 w-full items-center justify-start gap-5 rounded-md  font-bold transition-all hover:text-white"
                 >
                   <Search className="h-6 w-6" />
@@ -108,12 +111,56 @@ const Sidebar = () => {
         </div>
         {isSmallScreen && <Separator />}
         <div className="flex flex-col">
+          <HoverCard openDelay={20} closeDelay={0}>
+            <HoverCardTrigger asChild>
+              <Link
+                href={`/me/collection/tracks`}
+                className="flex w-full items-center justify-start gap-4 rounded-[6px] bg-neutral-900 p-2 font-semibold transition-all hover:bg-neutral-800/60"
+              >
+                <Image
+                  src="https://t.scdn.co/images/3099b3803ad9496896c43f22fe9be8c4.png"
+                  width={44}
+                  height={44}
+                  alt="Collection Track"
+                  className="rounded-[4px]"
+                />
+                {isSmallScreen && (
+                  <div className="flex flex-col gap-[6px] text-[#B2B2B2]">
+                    <p className="text-sm text-white">Liked Song</p>
+                    <div className="flex items-center justify-start gap-1">
+                      <Pin className="h-4 w-4 rotate-45 text-spotify-green" />
+                      <p className="text-xs ">Playlist</p>
+                      <p className="text-xs">•</p>
+                      <p className="text-xs">{user?.display_name}</p>
+                    </div>
+                  </div>
+                )}
+              </Link>
+            </HoverCardTrigger>
+            {!isSmallScreen && (
+              <HoverCardContent
+                className="ml-1 rounded-[6px] border-none bg-neutral-800 drop-shadow-md"
+                side="right"
+              >
+                <div className="flex justify-between space-x-4">
+                  <div className="flex flex-col gap-[6px] text-[#B2B2B2]">
+                    <p className="text-sm text-white">Liked Song</p>
+                    <div className="flex items-center justify-start gap-1">
+                      <Pin className="h-4 w-4 rotate-45 text-spotify-green" />
+                      <p className="text-xs ">Playlist</p>
+                      <p className="text-xs">•</p>
+                      <p className="text-xs">{user?.display_name}</p>
+                    </div>
+                  </div>
+                </div>
+              </HoverCardContent>
+            )}
+          </HoverCard>
           {playlists.map((playlist) => (
-            <HoverCard openDelay={20} closeDelay={0}>
+            <HoverCard openDelay={20} closeDelay={0} key={playlist.id}>
               <HoverCardTrigger asChild>
                 <Link
-                  href={`/playlist/${playlist.id}`}
-                  key={playlist.id}
+                  href={`/me/playlist/${playlist.id}`}
                   className="flex w-full items-center justify-start gap-4 rounded-[6px] bg-neutral-900 p-2 font-semibold transition-all hover:bg-neutral-800/60"
                 >
                   <Image
