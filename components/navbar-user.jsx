@@ -25,7 +25,7 @@ const NavbarUser = () => {
   };
 
   return (
-    <div className="fixed right-3 top-3 ">
+    <div className="fixed right-6 top-7 z-50">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
