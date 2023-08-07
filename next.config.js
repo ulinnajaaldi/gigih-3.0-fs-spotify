@@ -22,6 +22,14 @@ const nextConfig = {
         protocol: "https",
         hostname: "images-ak.spotifycdn.com",
       },
+      {
+        protocol: "https",
+        hostname: "t.scdn.co",
+      },
+      {
+        protocol: "https",
+        hostname: "thisis-images.scdn.co",
+      },
     ],
   },
 };
