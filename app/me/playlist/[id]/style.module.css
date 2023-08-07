@@ -1,0 +1,10 @@
+.description a:hover {
+  text-decoration: underline;
+}
+.description a {
+  @apply text-white;
+}
+.description {
+  @apply text-sm;
+  color: rgba(255, 255, 255, 0.7);
+}
