@@ -12,7 +12,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "./ui/tooltip";
-import { getUserPlaylists, getUserProfile, getUserTracks } from "@/lib/api";
+import { getUserPlaylists, getUserProfile } from "@/lib/api";
 
 const Sidebar = () => {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
@@ -44,7 +44,7 @@ const Sidebar = () => {
               <TooltipTrigger asChild>
                 <Link
                   href="/me"
-                  className="group flex h-10 w-full items-center justify-start gap-5 rounded-md  font-bold transition-all hover:text-white"
+                  className="group flex h-10 w-full items-center justify-start gap-5 rounded-md text-sm font-bold  transition-all hover:text-white xl:text-base"
                 >
                   <Home className="h-6 w-6" />
                   {isSmallScreen && "Home"}
@@ -64,7 +64,7 @@ const Sidebar = () => {
               <TooltipTrigger asChild>
                 <Link
                   href="/me/search"
-                  className="group flex h-10 w-full items-center justify-start gap-5 rounded-md  font-bold transition-all hover:text-white"
+                  className="group flex h-10 w-full items-center justify-start gap-5 rounded-md text-sm font-bold  transition-all hover:text-white xl:text-base"
                 >
                   <Search className="h-6 w-6" />
                   {isSmallScreen && "Search"}
@@ -90,7 +90,7 @@ const Sidebar = () => {
               <TooltipTrigger asChild>
                 <button
                   onClick={() => setIsSmallScreen(!isSmallScreen)}
-                  className={`group flex h-10 w-full items-center ${
+                  className={`group flex h-10 w-full items-center text-start text-sm xl:text-base ${
                     isSmallScreen ? "justify-start" : "justify-center"
                   } gap-5 font-bold transition-all hover:text-white`}
                 >
@@ -126,12 +126,14 @@ const Sidebar = () => {
                 />
                 {isSmallScreen && (
                   <div className="flex flex-col gap-[6px] text-[#B2B2B2]">
-                    <p className="text-sm text-white">Liked Song</p>
+                    <p className="text-xs text-white xl:text-sm">Liked Song</p>
                     <div className="flex items-center justify-start gap-1">
                       <Pin className="h-4 w-4 rotate-45 text-spotify-green" />
-                      <p className="text-xs ">Playlist</p>
-                      <p className="text-xs">•</p>
-                      <p className="text-xs">{user?.display_name}</p>
+                      <p className="hidden text-xs xl:block">Playlist</p>
+                      <p className="hidden text-xs xl:block">•</p>
+                      <p className="line-clamp-1 text-xs xl:line-clamp-none">
+                        {user?.display_name}
+                      </p>
                     </div>
                   </div>
                 )}
@@ -144,7 +146,7 @@ const Sidebar = () => {
               >
                 <div className="flex justify-between space-x-4">
                   <div className="flex flex-col gap-[6px] text-[#B2B2B2]">
-                    <p className="text-sm text-white">Liked Song</p>
+                    <p className="text-xs text-white xl:text-sm">Liked Song</p>
                     <div className="flex items-center justify-start gap-1">
                       <Pin className="h-4 w-4 rotate-45 text-spotify-green" />
                       <p className="text-xs ">Playlist</p>
@@ -172,12 +174,14 @@ const Sidebar = () => {
                   />
                   {isSmallScreen && (
                     <div className="flex flex-col gap-[6px] text-[#B2B2B2]">
-                      <p className="text-sm text-white">{playlist.name}</p>
+                      <p className="line-clamp-2 text-xs text-white xl:line-clamp-none xl:text-sm">
+                        {playlist.name}
+                      </p>
                       <div className="flex gap-1">
-                        <p className="text-xs ">
+                        <p className="hidden text-xs xl:block">
                           {playlist.type === "playlist" ? "Playlist" : "Album"}
                         </p>
-                        <p className="text-xs">•</p>
+                        <p className="hidden text-xs xl:block">•</p>
                         <p className="text-xs">{playlist.owner.display_name}</p>
                       </div>
                     </div>
