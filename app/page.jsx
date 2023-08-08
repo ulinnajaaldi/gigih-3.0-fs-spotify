@@ -40,7 +40,8 @@ const Login = () => {
   const handleLogin = async () => {
     const codeVerifier = generateRandomString(128);
     const state = generateRandomString(16);
-    const scope = "playlist-modify-private playlist-read-private";
+    const scope =
+      "playlist-modify-private user-read-email playlist-read-private user-library-read user-library-modify";
 
     if (typeof document !== "undefined") {
       document.cookie = `code_verifier=${codeVerifier}; path=/`;
@@ -82,8 +83,22 @@ const Login = () => {
 
       const { access_token, refresh_token, expires_in } = result;
 
+      // get refresh token
+
+      const refreshBody = new URLSearchParams({
+        grant_type: "refresh_token",
+        refresh_token: refresh_token,
+        client_id: clientId,
+      });
+
+      const refreshResult = await AuthLogin(refreshBody);
+
+      const { access_token: new_access_token } = refreshResult;
+
+      // set cookies
+
       if (typeof document !== "undefined") {
-        document.cookie = `access_token=${access_token}; max-age=${expires_in}; path=/`;
+        document.cookie = `access_token=${new_access_token}; max-age=${expires_in}; path=/`;
         document.cookie = `refresh_token=${refresh_token}; max-age=${
           expires_in + 500
         }; path=/`;
