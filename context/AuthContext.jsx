@@ -12,14 +12,12 @@ export const AuthProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
-    console.log("triggred context router.pathname");
     if (router.pathname === "/me") {
       getProfile();
     }
   }, [router.pathname]);
 
   useEffect(() => {
-    console.log("triggred context userData");
     getProfile();
   }, [userData]);
 
