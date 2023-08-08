@@ -35,7 +35,7 @@ const NavbarUser = () => {
             <Avatar className="h-8 w-8">
               <AvatarImage
                 src={
-                  userData?.images.length > 0
+                  userData?.images
                     ? userData?.images[0].url || userData?.images[1].url
                     : `https://ui-avatars.com/api/?name=${userData?.display_name}`
                 }

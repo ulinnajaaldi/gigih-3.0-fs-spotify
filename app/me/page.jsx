@@ -78,142 +78,146 @@ const Home = () => {
               </Link>
             ))}
           </div>
-          <div className="mt-10">
-            <h1 className="text-2xl font-bold text-neutral-100">
-              New Release 🔥
-            </h1>
-            <div className="mt-4 flex flex-wrap gap-5">
-              {newReleases?.map((item) => (
-                <div
-                  key={item.id}
-                  className="flex w-[210px] flex-col gap-2 rounded-[6px] bg-neutral-800 p-4 transition-all hover:bg-neutral-700"
-                >
-                  <Image
-                    src={item.images[0].url}
-                    alt={item?.name ? item?.name : "New Release"}
-                    width={120}
-                    height={120}
-                    className="h-44 w-full rounded-[6px] object-cover"
-                  />
-                  <p className="mt-2 line-clamp-1 font-bold text-white">
-                    {item.name}
-                  </p>
-                  <div className="flex flex-wrap text-sm">
-                    {item.artists.length > 1 ? (
-                      item.artists.map((artist, index) => {
-                        let isLastIndex = index === item.artists.length - 1;
-                        return (
-                          <div key={index} className="inline-flex">
-                            <a
-                              href={artist.external_urls.spotify}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="line-clamp-1 text-[#b3b3b3] hover:text-white hover:underline"
-                            >
-                              {artist.name}
-                            </a>
-                            <p>{isLastIndex ? "" : ",  "}</p>
-                          </div>
-                        );
-                      })
-                    ) : (
-                      <a
-                        href={item.artists[0].external_urls.spotify}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="line-clamp-1 text-[#b3b3b3] hover:text-white  hover:underline"
-                      >
-                        {item.artists[0].name}
-                      </a>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="mt-10">
-            <h1 className="text-2xl font-bold text-neutral-100">
-              Your Top Track
-            </h1>
-            <div className="mt-4 flex flex-wrap gap-5">
-              {topTrack?.map((item) => (
-                <div
-                  key={item.id}
-                  className="flex w-[210px] flex-col gap-2 rounded-[6px] bg-neutral-800 p-4 transition-all hover:bg-neutral-700"
-                >
-                  <Image
-                    src={item.album.images[0].url}
-                    alt={item?.name ? item?.name : "Top Track"}
-                    width={120}
-                    height={120}
-                    className="h-44 w-full rounded-[6px] object-cover"
-                  />
-                  <p className="mt-2 line-clamp-1 font-bold text-white">
-                    {item.name}
-                  </p>
-                  {item.artists.length > 1 ? (
-                    item.artists.map((artist, index) => {
-                      let isLastIndex = index === item.artists.length - 1;
-                      return (
-                        <div key={index} className="inline-flex">
+          {newReleases.length > 0 && (
+            <>
+              <div className="mt-10">
+                <h1 className="text-2xl font-bold text-neutral-100">
+                  New Release 🔥
+                </h1>
+                <div className="mt-4 flex flex-wrap gap-5">
+                  {newReleases?.map((item) => (
+                    <div
+                      key={item.id}
+                      className="flex w-[210px] flex-col gap-2 rounded-[6px] bg-neutral-800 p-4 transition-all hover:bg-neutral-700"
+                    >
+                      <Image
+                        src={item.images[0].url}
+                        alt={item?.name ? item?.name : "New Release"}
+                        width={120}
+                        height={120}
+                        className="h-44 w-full rounded-[6px] object-cover"
+                      />
+                      <p className="mt-2 line-clamp-1 font-bold text-white">
+                        {item.name}
+                      </p>
+                      <div className="flex flex-wrap text-sm">
+                        {item.artists.length > 1 ? (
+                          item.artists.map((artist, index) => {
+                            let isLastIndex = index === item.artists.length - 1;
+                            return (
+                              <div key={index} className="inline-flex">
+                                <a
+                                  href={artist.external_urls.spotify}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="line-clamp-1 text-[#b3b3b3] hover:text-white hover:underline"
+                                >
+                                  {artist.name}
+                                </a>
+                                <p>{isLastIndex ? "" : ",  "}</p>
+                              </div>
+                            );
+                          })
+                        ) : (
                           <a
-                            href={artist.external_urls.spotify}
+                            href={item.artists[0].external_urls.spotify}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="line-clamp-1 text-[#b3b3b3] hover:text-white hover:underline"
+                            className="line-clamp-1 text-[#b3b3b3] hover:text-white  hover:underline"
                           >
-                            {artist.name}
+                            {item.artists[0].name}
                           </a>
-                          <p>{isLastIndex ? "" : ",  "}</p>
-                        </div>
-                      );
-                    })
-                  ) : (
-                    <a
-                      href={item.artists[0].external_urls.spotify}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="line-clamp-1 text-[#b3b3b3] hover:text-white  hover:underline"
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="mt-10">
+                <h1 className="text-2xl font-bold text-neutral-100">
+                  Your Top Track
+                </h1>
+                <div className="mt-4 flex flex-wrap gap-5">
+                  {topTrack?.map((item) => (
+                    <div
+                      key={item.id}
+                      className="flex w-[210px] flex-col gap-2 rounded-[6px] bg-neutral-800 p-4 transition-all hover:bg-neutral-700"
                     >
-                      {item.artists[0].name}
-                    </a>
-                  )}
+                      <Image
+                        src={item.album.images[0].url}
+                        alt={item?.name ? item?.name : "Top Track"}
+                        width={120}
+                        height={120}
+                        className="h-44 w-full rounded-[6px] object-cover"
+                      />
+                      <p className="mt-2 line-clamp-1 font-bold text-white">
+                        {item.name}
+                      </p>
+                      {item.artists.length > 1 ? (
+                        item.artists.map((artist, index) => {
+                          let isLastIndex = index === item.artists.length - 1;
+                          return (
+                            <div key={index} className="inline-flex">
+                              <a
+                                href={artist.external_urls.spotify}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="line-clamp-1 text-[#b3b3b3] hover:text-white hover:underline"
+                              >
+                                {artist.name}
+                              </a>
+                              <p>{isLastIndex ? "" : ",  "}</p>
+                            </div>
+                          );
+                        })
+                      ) : (
+                        <a
+                          href={item.artists[0].external_urls.spotify}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="line-clamp-1 text-[#b3b3b3] hover:text-white  hover:underline"
+                        >
+                          {item.artists[0].name}
+                        </a>
+                      )}
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </div>
-          <div className="mt-10">
-            <h1 className="text-2xl font-bold text-neutral-100">
-              Your Top Artists
-            </h1>
-            <div className="mt-4 flex flex-wrap gap-5">
-              {topArtists?.map((artist) => (
-                <div
-                  key={artist.id}
-                  className="flex w-[210px] flex-col gap-2 rounded-[6px] bg-neutral-800 p-4 transition-all hover:bg-neutral-700"
-                >
-                  <Image
-                    src={artist.images[0].url}
-                    alt={artist?.name ? artist?.name : "Artist"}
-                    width={120}
-                    height={120}
-                    className="h-44 w-full rounded-full border border-neutral-900 object-cover shadow-2xl"
-                  />
-                  <a
-                    href={artist.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-2 line-clamp-1 font-bold text-white hover:underline"
-                  >
-                    {artist.name}
-                  </a>
-                  <p className="text-sm font-semibold capitalize text-[#b3b3b3]">
-                    {artist.type}
-                  </p>
+              </div>
+              <div className="mt-10">
+                <h1 className="text-2xl font-bold text-neutral-100">
+                  Your Top Artists
+                </h1>
+                <div className="mt-4 flex flex-wrap gap-5">
+                  {topArtists?.map((artist) => (
+                    <div
+                      key={artist.id}
+                      className="flex w-[210px] flex-col gap-2 rounded-[6px] bg-neutral-800 p-4 transition-all hover:bg-neutral-700"
+                    >
+                      <Image
+                        src={artist.images[0].url}
+                        alt={artist?.name ? artist?.name : "Artist"}
+                        width={120}
+                        height={120}
+                        className="h-44 w-full rounded-full border border-neutral-900 object-cover shadow-2xl"
+                      />
+                      <a
+                        href={artist.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-2 line-clamp-1 font-bold text-white hover:underline"
+                      >
+                        {artist.name}
+                      </a>
+                      <p className="text-sm font-semibold capitalize text-[#b3b3b3]">
+                        {artist.type}
+                      </p>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </div>
+              </div>
+            </>
+          )}
         </>
       )}
     </div>
